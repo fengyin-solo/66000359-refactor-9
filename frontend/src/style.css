@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  /* 排布规则唯一来源：断点、列宽、间距（大屏左右分栏 / 窄屏上下堆叠） */
+  .layout-shell { @apply flex flex-col lg:flex-row gap-4 p-4; }
+  .layout-side { @apply lg:w-2/5 space-y-4; }
+  .layout-main { @apply lg:w-3/5 space-y-4; }
+  /* 面板容器样式唯一来源：背景、圆角、内边距、边框 */
+  .panel { @apply bg-slate-800 rounded-lg p-4 border border-slate-700; }
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; background: #0f172a; color: #e2e8f0; }
 ::-webkit-scrollbar { width: 8px; height: 8px; }
