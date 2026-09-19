@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * 分析界面共用排布规则
+ * 大屏（lg 及以上）与窄屏均从此处取断点、间距与容器样式，
+ * 新增面板只需挂 .panel 并放进对应的 .analysis-column，无需再各自声明。
+ */
+@layer components {
+  /* 结果区外层：窄屏纵向堆叠，lg 断点切换为左右两栏；间距统一取 gap-4 */
+  .analysis-layout {
+    @apply flex flex-col lg:flex-row gap-4 p-4;
+  }
+
+  /* 栏：栏内面板纵向排列，面板间距统一取 space-y-4 */
+  .analysis-column {
+    @apply space-y-4;
+  }
+
+  /* 大屏下两栏的宽度占比（断点 lg 与外层一致） */
+  .analysis-column--sidebar {
+    @apply lg:w-2/5;
+  }
+  .analysis-column--results {
+    @apply lg:w-3/5;
+  }
+
+  /* 面板容器：底色、圆角、边框、内边距，所有面板共用 */
+  .panel {
+    @apply bg-slate-800 rounded-lg p-4 border border-slate-700;
+  }
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; background: #0f172a; color: #e2e8f0; }
 ::-webkit-scrollbar { width: 8px; height: 8px; }

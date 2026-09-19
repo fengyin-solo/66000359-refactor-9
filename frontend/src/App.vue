@@ -4,9 +4,9 @@
       <h1 class="text-2xl font-bold text-cyan-400">SQL 查询可视化与执行计划分析器</h1>
       <p class="text-sm text-slate-500 mt-1">SQL语法解析 · 执行计划树 · ER图 · 复杂度评分 · 优化建议</p>
     </header>
-    <div class="flex flex-col lg:flex-row gap-4 p-4">
-      <div class="lg:w-2/5 space-y-4">
-        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+    <div class="analysis-layout">
+      <div class="analysis-column analysis-column--sidebar">
+        <div class="panel">
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-sm font-bold text-slate-400">SQL 编辑器</h3>
             <div class="flex gap-2">
@@ -18,7 +18,7 @@
           <textarea v-model="store.sql" rows="12" class="w-full bg-slate-900 border border-slate-600 rounded px-3 py-2 text-sm font-mono text-green-400 focus:outline-none focus:border-cyan-500 resize-none"></textarea>
           <button @click="store.analyze" class="w-full mt-3 py-2 bg-cyan-600 hover:bg-cyan-500 rounded text-sm font-bold">分析查询</button>
         </div>
-        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+        <div class="panel">
           <h3 class="text-sm font-bold text-slate-400 mb-3">数据库 Schema</h3>
           <div class="space-y-2">
             <div v-for="t in SCHEMA_TABLES" :key="t.name" @click="store.activeSchema = store.activeSchema?.name === t.name ? null : t"
@@ -38,8 +38,8 @@
           </div>
         </div>
       </div>
-      <div class="lg:w-3/5 space-y-4">
-        <div v-if="store.parsed" class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+      <div class="analysis-column analysis-column--results">
+        <div v-if="store.parsed" class="panel">
           <h3 class="text-sm font-bold text-slate-400 mb-3">查询解析结果</h3>
           <div class="grid grid-cols-4 gap-3 text-sm mb-4">
             <div class="bg-slate-900 rounded p-2 text-center"><div class="text-xs text-slate-500 mb-1">类型</div><div class="text-cyan-400 font-bold">{{ store.parsed.type }}</div></div>
@@ -55,7 +55,7 @@
           </div>
           <div v-else class="text-xs text-green-400 bg-green-900/20 border border-green-700 rounded p-2">✓ 未发现明显性能问题</div>
         </div>
-        <div v-if="store.plan" class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+        <div v-if="store.plan" class="panel">
           <h3 class="text-sm font-bold text-slate-400 mb-3">执行计划树</h3>
           <div class="overflow-x-auto">
             <div class="font-mono text-xs text-slate-300 space-y-1">
@@ -63,7 +63,7 @@
             </div>
           </div>
         </div>
-        <div v-if="store.parsed" class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+        <div v-if="store.parsed" class="panel">
           <h3 class="text-sm font-bold text-slate-400 mb-3">涉及表与关联关系</h3>
           <canvas ref="erCanvasRef" class="w-full bg-slate-900 rounded" style="height:200px"></canvas>
         </div>
